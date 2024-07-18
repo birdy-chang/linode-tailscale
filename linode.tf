@@ -10,11 +10,12 @@ curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/focal.tailscale-keyring.list
 apt-get update
 apt-get install tailscale -y
 
-echo 'net.ipv4.ip_forward = 1' | sudo tee -a /etc/sysctl.d/99-tailscale.conf
-echo 'net.ipv6.conf.all.forwarding = 1' | sudo tee -a /etc/sysctl.d/99-tailscale.conf
-sysctl -p /etc/sysctl.d/99-tailscale.conf
+# Uncomment here if the tailscale node is an exit node
+# echo 'net.ipv4.ip_forward = 1' | sudo tee -a /etc/sysctl.d/99-tailscale.conf
+# echo 'net.ipv6.conf.all.forwarding = 1' | sudo tee -a /etc/sysctl.d/99-tailscale.conf
+# sysctl -p /etc/sysctl.d/99-tailscale.conf
 
-echo 'tailscale up --advertise-exit-node --authkey=${var.tailscale_auth_key}' > start-tailscale.sh
+echo 'tailscale up ${var.tailscale_up_arg} --authkey=${var.tailscale_auth_key}' > start-tailscale.sh
 crontab -l > my-crontab
 echo '@reboot /root/start-tailscale.sh' >> my-crontab
 crontab my-crontab

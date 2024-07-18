@@ -9,3 +9,7 @@ variable "tailscale_auth_key" {
 variable "linode_root" {
   type = string
 }
+
+variable "tailscale_up_arg" {
+  type = string
+}
