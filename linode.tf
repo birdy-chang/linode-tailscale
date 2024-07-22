@@ -15,10 +15,11 @@ apt-get install tailscale -y
 # echo 'net.ipv6.conf.all.forwarding = 1' | sudo tee -a /etc/sysctl.d/99-tailscale.conf
 # sysctl -p /etc/sysctl.d/99-tailscale.conf
 
-echo 'tailscale up ${var.tailscale_up_arg} --authkey=${var.tailscale_auth_key}' > start-tailscale.sh
-crontab -l > my-crontab
-echo '@reboot /root/start-tailscale.sh' >> my-crontab
-crontab my-crontab
+mkdir -p /etc/linode-tailscale
+echo 'tailscale up ${var.tailscale_up_arg} --authkey=${var.tailscale_auth_key}' > /etc/linode-tailscale/start-tailscale.sh
+crontab -l > /etc/linode-tailscale/my-crontab
+echo '@reboot /root/start-tailscale.sh' >> /etc/linode-tailscale/my-crontab
+crontab /etc/linode-tailscale/my-crontab
 EOF
   images = ["linode/ubuntu20.04"]
 }
