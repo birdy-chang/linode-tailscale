@@ -17,8 +17,9 @@ apt-get install tailscale -y
 
 mkdir -p /etc/linode-tailscale
 echo 'tailscale up ${var.tailscale_up_arg} --authkey=${var.tailscale_auth_key}' > /etc/linode-tailscale/start-tailscale.sh
+chmod +x /etc/linode-tailscale/start-tailscale.sh
 crontab -l > /etc/linode-tailscale/my-crontab
-echo '@reboot /root/start-tailscale.sh' >> /etc/linode-tailscale/my-crontab
+echo '@reboot /etc/linode-tailscale/start-tailscale.sh' >> /etc/linode-tailscale/my-crontab
 crontab /etc/linode-tailscale/my-crontab
 EOF
   images = ["linode/ubuntu20.04"]
