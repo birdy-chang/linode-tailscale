@@ -21,6 +21,7 @@ chmod +x /etc/linode-tailscale/start-tailscale.sh
 crontab -l > /etc/linode-tailscale/my-crontab
 echo '@reboot /etc/linode-tailscale/start-tailscale.sh' >> /etc/linode-tailscale/my-crontab
 crontab /etc/linode-tailscale/my-crontab
+reboot
 EOF
   images = ["linode/ubuntu20.04"]
 }
